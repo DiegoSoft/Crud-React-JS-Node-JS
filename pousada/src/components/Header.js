@@ -21,7 +21,7 @@ function Header(){
 
 
 
-<nav className="navbar navbar-expand-lg  bg-body-tertiary" style={{background:'#87CEEB'}}>
+<nav className="navbar navbar-expand-lg  bg-body-tertiary" style={{background:'#EAEBEF'}}>
  
   <div className="container-fluid">
  
