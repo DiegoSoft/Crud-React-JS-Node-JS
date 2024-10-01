@@ -214,7 +214,7 @@ app.put('/produtos/update/:id', async (req, res) => {
     res.json({ message: 'Producto atualizado !' });
 
   } else {
-    res.status(404).json({ message: 'Usuario não encontrado' });
+    res.status(404).json({ message: 'Produto não encontrado' });
   }
 });
 
