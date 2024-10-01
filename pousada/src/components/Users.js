@@ -49,7 +49,7 @@ export default function ProductsDemo() {
 
     const perfil_user = [
         { name: 'Admin', value: 'Admin' },
-        { name: 'Usuario', value: 'Usuario' }
+        { name: 'Usuário', value: 'Usuário' }
 
 
     ];
@@ -94,7 +94,7 @@ export default function ProductsDemo() {
                 axios.put('http://localhost:8080/users/update/' + product.id, _product)
                     .then(response => {
                         {/*console.log(_product);*/ }
-                        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Usuario Atualizado', life: 3000 });
+                        toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Usuario Atualizado', life: 3000 });
                     })
                     .catch(error => {
                         console.log(error);
@@ -104,7 +104,7 @@ export default function ProductsDemo() {
                 axios.post('http://localhost:8080/users/create', _product)
                     .then(response => {
                         {/*console.log(_product);*/ }
-                        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Usuario criado', life: 3000 });
+                        toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Usuario criado', life: 3000 });
                     })
                     .catch(error => {
                         console.log(error);
@@ -143,7 +143,7 @@ export default function ProductsDemo() {
         axios.delete('http://localhost:8080/users/' + _product.id)
             .then(response => {
 
-                toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Usuario excluido', life: 3000 });
+                toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Usuário excluído', life: 3000 });
             })
             .catch(error => {
                 console.log(error);
@@ -165,7 +165,7 @@ export default function ProductsDemo() {
         axios.delete('http://localhost:8080/items/users', { data: { ids: ids } })
             .then(response => {
 
-                toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Usuarios excluidos', life: 3000 });
+                toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Usuários excluídos', life: 3000 });
 
             })
             .catch(error => console.error(error));
@@ -292,19 +292,20 @@ export default function ProductsDemo() {
     return (
         <div>
             <Header />
+         <Toast ref={toast} />
             <br />
 
          
 
             <div style={dataTable}>
-                <Toast ref={toast} />
+              
                 <div className="card">
                     <Toolbar className="mb-4" left={leftToolbarTemplate} center={centerToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
 
                     <DataTable ref={dt} value={products}  resizableColumns selection={selectedProducts} stripedRows onSelectionChange={(e) => setSelectedProducts(e.value)}
                         dataKey="id" paginator rows={8} rowsPerPageOptions={[5, 10, 25]} className="datatable-responsive"
                         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products" globalFilter={globalFilter} header={header} scrollable scrollHeight="400px" >
+                        currentPageReportTemplate="Página {first} a {last} de {totalRecords} produtos" globalFilter={globalFilter} header={header} scrollable scrollHeight="400px" >
                         <Column selectionMode="multiple" exportable={false}></Column>
                         <Column field="id" header="#" sortable style={{ minWidth: '8rem' }}></Column>
                         <Column field="name" header="Usuario" sortable style={{ minWidth: '8rem' }}></Column>
@@ -328,10 +329,10 @@ export default function ProductsDemo() {
 
                 <div className="field">
                     <label htmlFor="name" className="font-bold">
-                        Nome de usuario
+                        Nome de usuário
                     </label>
                     <InputText id="name" value={product.name} onChange={(e) => onInputChange(e, 'name')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.name })} />
-                    {submitted && !product.name && <small className="p-error">Nome é obligatorio.</small>}
+                    {submitted && !product.name && <small className="p-error">Nome é obrigatório.</small>}
                 </div>
                 <div className="field">
 
@@ -343,7 +344,8 @@ export default function ProductsDemo() {
                     <label htmlFor="senha" className="font-bold">
                         Senha
                     </label>
-                    <InputText id="senha" value={product.senha} onChange={(e) => onInputChange(e, 'senha')} required rows={2} cols={20} />
+                    <InputText id="senha" value={product.senha} onChange={(e) => onInputChange(e, 'senha')} required rows={2} cols={20}  className={classNames({ 'p-invalid': submitted && !product.senha })} />
+                    {submitted && !product.senha && <small className="p-error">Senha é obrigatório.</small>}
                     </>
                   }
                 </div>
@@ -352,9 +354,8 @@ export default function ProductsDemo() {
                     <label htmlFor="status" className="font-bold">
                         Status
                     </label>
-                    <Dropdown className="w-full md:w-14rem" id="status" options={status_user} optionLabel="name" value={product.status} onChange={(e) => onInputChange(e, 'status')}
-
-                    />
+                    <Dropdown  id="status" options={status_user} optionLabel="name" value={product.status} onChange={(e) => onInputChange(e, 'status')} className={classNames({ 'p-invalid': submitted && !product.status })}/>
+                    {submitted && !product.status && <small className="p-error">Status é obrigatório.</small>}
                 </div>
 
 
@@ -362,9 +363,8 @@ export default function ProductsDemo() {
                     <label htmlFor="perfil" className="font-bold">
                         Perfil
                     </label>
-                    <Dropdown className="w-full md:w-14rem" id="perfil" options={perfil_user} optionLabel="name" value={product.perfil} onChange={(e) => onInputChange(e, 'perfil')}
-
-                    />
+                    <Dropdown id="perfil" options={perfil_user} optionLabel="name" value={product.perfil} onChange={(e) => onInputChange(e, 'perfil')} className={classNames({ 'p-invalid': submitted && !product.perfil })}/>
+                    {submitted && !product.perfil && <small className="p-error">Perfil é obrigatório.</small>}
                 </div>
 
             </Dialog>
